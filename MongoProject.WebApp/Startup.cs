@@ -32,10 +32,6 @@ namespace MongoProject.WebApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
 
             app.UseStaticFiles();
 
