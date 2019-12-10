@@ -43,7 +43,7 @@ namespace MongoProject.WebApp.Pages.Components
                 c => c.Name, c => c.Type, c => c.Size, c => c.Quantity))
             {
                 await _repository.UpdateComponentAsync(componentToUpdate);
-                return RedirectToPage("./Index");
+                return RedirectToPage("./Details", new { id = componentToUpdate.Id });
             }
 
             return Page();

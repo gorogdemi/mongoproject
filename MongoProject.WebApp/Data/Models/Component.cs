@@ -1,10 +1,12 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using System.ComponentModel;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoProject.WebApp.Data
 {
     public class Component
     {
         [BsonId]
+        [DisplayName("ID")]
         public string Id { get; set; }
 
         public string Name { get; set; }

@@ -4,11 +4,11 @@
     ViewData["Title"] = "Component Details";
 }
 
-<h1>Details</h1>
+<h1 class="text-center">Details</h1>
 
-<div>
-    <h4>Component</h4>
-    <hr />
+<h4 class="text-center">Component</h4>
+<hr />
+<div class="d-flex justify-content-end">
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Component.Id)
@@ -42,7 +42,8 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Component.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+<div class="text-center">
+    <a class="btn btn-success mr-3" asp-page="./Edit" asp-route-id="@Model.Component.Id">Edit</a>
+    <a class="btn btn-danger mr-3" asp-page="./Delete" asp-route-id="@Model.Component.Id">Delete</a>
+    <a class="btn btn-primary mr-3" asp-page="./Index">Cancel</a>
 </div>

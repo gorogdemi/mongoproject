@@ -1,8 +1,45 @@
 ﻿@page
 @model AddModel
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Add Component";
 }
 
-<h1>Add</h1>
+<h1 class="text-center">Add</h1>
 
+<h4 class="text-center">Component</h4>
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Component.Id" class="control-label"></label>
+                <input type="text" asp-for="Component.Id" class="form-control" />
+                <span asp-validation-for="Component.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Component.Name" class="control-label"></label>
+                <input type="text" asp-for="Component.Name" class="form-control" />
+                <span asp-validation-for="Component.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Component.Type" class="control-label"></label>
+                <input type="text" asp-for="Component.Type" class="form-control" />
+                <span asp-validation-for="Component.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Component.Size" class="control-label"></label>
+                <input type="number" asp-for="Component.Size" class="form-control" />
+                <span asp-validation-for="Component.Size" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" value="Save" class="btn btn-success mr-3" />
+                <a class="btn btn-primary" asp-page="./Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
