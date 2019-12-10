@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MongoProject.WebApp.Utilities;
 
 namespace MongoProject.WebApp.Data
 {
@@ -7,6 +7,8 @@ namespace MongoProject.WebApp.Data
     {
         Task UpdateComponentAsync(Component componentToUpdate);
         Task<Component> FindComponentAsync(string id);
-        Task<List<Component>> GetAllComponentsAsync();
+        Task<PaginatedList<Component>> GetAllComponentsPaginatedAsync(string searchString, string sortOrder, int pageIndex, int pageSize);
+        Task AddComponentAsync(Component component);
+        Task DeleteComponentAsync(Component component);
     }
 }
