@@ -5,3 +5,7 @@
 /.vs
 /MongoProject.WebApp/bin/Debug/netcoreapp3.1
 /MongoProject.WebApp/obj
+/MongoProject.WebApp/.config
+/MongoProject.WebApp/bin/Release/netcoreapp3.1
+/MongoProject.WebApp/Properties/PublishProfiles
+/MongoProject.WebApp/MongoProject.WebApp.csproj.user
