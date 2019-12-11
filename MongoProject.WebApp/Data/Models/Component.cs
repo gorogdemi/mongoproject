@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace MongoProject.WebApp.Data
+namespace MongoProject.WebApp.Data.Models
 {
     public class Component
     {
@@ -12,8 +12,6 @@ namespace MongoProject.WebApp.Data
         public string Name { get; set; }
 
         public string Type { get; set; }
-
-        public double Size { get; set; }
 
         public int Quantity { get; set; }
     }
