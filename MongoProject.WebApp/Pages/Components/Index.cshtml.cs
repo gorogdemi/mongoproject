@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MongoProject.WebApp.Data;
+using MongoProject.WebApp.Data.Models;
 using MongoProject.WebApp.Utilities;
 
 namespace MongoProject.WebApp.Pages.Components

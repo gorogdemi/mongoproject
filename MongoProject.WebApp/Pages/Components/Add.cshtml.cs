@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MongoProject.WebApp.Data;
+using MongoProject.WebApp.Data.Models;
 
 namespace MongoProject.WebApp.Pages.Components
 {
@@ -28,7 +29,7 @@ namespace MongoProject.WebApp.Pages.Components
             if (await TryUpdateModelAsync(
                 emptyComponent,
                 "component",
-                c => c.Id, c => c.Name, c => c.Type, c => c.Size))
+                c => c.Id, c => c.Name, c => c.Type))
             {
                 await _repository.AddComponentAsync(emptyComponent);
                 return RedirectToPage("./Index");

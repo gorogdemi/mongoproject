@@ -27,11 +27,11 @@
                 <input type="text" asp-for="Component.Type" class="form-control" />
                 <span asp-validation-for="Component.Type" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Component.Size" class="control-label"></label>
                 <input type="number" asp-for="Component.Size" class="form-control" />
                 <span asp-validation-for="Component.Size" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group text-center">
                 <input type="submit" value="Save" class="btn btn-success mr-3" />
                 <a class="btn btn-primary" asp-page="./Index">Cancel</a>
