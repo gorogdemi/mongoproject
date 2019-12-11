@@ -12,10 +12,10 @@ namespace MongoProject.WebApp.Utilities
         {
         }
 
-        public PaginatedList(List<T> items, int pageIndex, int pageSize)
+        public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
-            TotalPages = (int)Math.Ceiling(items.Count / (double)pageSize);
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
 
             AddRange(items);
         }

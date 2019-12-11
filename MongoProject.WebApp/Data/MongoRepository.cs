@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoProject.WebApp.Data.Models;
 using MongoProject.WebApp.Utilities;
 
 namespace MongoProject.WebApp.Data
@@ -42,10 +43,12 @@ namespace MongoProject.WebApp.Data
 
             components = components.Skip((pageIndex - 1) * pageSize).Take(pageSize);
             var componentList = await components.ToListAsync();
-            return new PaginatedList<Component>(componentList, pageIndex, pageSize);
+            return new PaginatedList<Component>(componentList, await GetComponentCount(), pageIndex, pageSize);
         }
 
         public async Task UpdateComponentAsync(Component componentToUpdate)
             => await _database.GetCollection<Component>("Components").FindOneAndReplaceAsync(x => x.Id == componentToUpdate.Id, componentToUpdate);
+
+        public async Task<int> GetComponentCount() => (int)await _database.GetCollection<Component>("Components").CountDocumentsAsync(x => true);
     }
 }

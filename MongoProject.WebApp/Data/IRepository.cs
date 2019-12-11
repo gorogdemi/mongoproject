@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MongoProject.WebApp.Data.Models;
 using MongoProject.WebApp.Utilities;
 
 namespace MongoProject.WebApp.Data
@@ -10,5 +11,6 @@ namespace MongoProject.WebApp.Data
         Task<PaginatedList<Component>> GetAllComponentsPaginatedAsync(string searchString, string sortOrder, int pageIndex, int pageSize);
         Task AddComponentAsync(Component component);
         Task DeleteComponentAsync(Component component);
+        Task<int> GetComponentCount();
     }
 }

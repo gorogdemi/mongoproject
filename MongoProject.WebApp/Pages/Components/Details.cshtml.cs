@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MongoProject.WebApp.Data;
+using MongoProject.WebApp.Data.Models;
 
 namespace MongoProject.WebApp.Pages.Components
 {

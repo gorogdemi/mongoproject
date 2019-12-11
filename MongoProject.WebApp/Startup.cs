@@ -11,9 +11,9 @@ using MongoProject.WebApp.Data;
 namespace MongoProject.WebApp
 {
     //TODO Login
-    //TODO Bevételezés (keresés + addolás listához és mennyiség megadása)
+    //TODO Components mennyiség megadása
     //TODO Kitek (like Components)
-    //TODO Email (mindenképp Demi)
+    //TODO Main oldal
     //TODO DB feltöltése (mindenképp Gergõ)
     //TODO Design
 
