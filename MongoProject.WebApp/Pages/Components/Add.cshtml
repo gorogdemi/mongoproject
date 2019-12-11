@@ -12,6 +12,11 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Component.Type" value="@Model.ComponentType" />
+            <div class="form-group">
+                <label asp-for="Component.Type" class="control-label"></label>
+                <div><b>@Html.DisplayFor(model => model.ComponentType)</b></div>
+            </div>
             <div class="form-group">
                 <label asp-for="Component.Id" class="control-label"></label>
                 <input type="text" asp-for="Component.Id" class="form-control" />
@@ -22,16 +27,107 @@
                 <input type="text" asp-for="Component.Name" class="form-control" />
                 <span asp-validation-for="Component.Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Component.Type" class="control-label"></label>
-                <input type="text" asp-for="Component.Type" class="form-control" />
-                <span asp-validation-for="Component.Type" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="Component.Size" class="control-label"></label>
-                <input type="number" asp-for="Component.Size" class="form-control" />
-                <span asp-validation-for="Component.Size" class="text-danger"></span>
-            </div>*@
+
+            @if (Model.ComponentType == ComponentType.BLDCMotor)
+            {
+                var component = Model.Component as BLDCMotor;
+
+                <div class="form-group">
+                    <label asp-for="@component.RPMV" class="control-label"></label>
+                    <input type="number" asp-for="@component.RPMV" class="form-control" />
+                    <span asp-validation-for="@component.RPMV" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.Shaftdiameter" class="control-label"></label>
+                    <input type="text" asp-for="@component.Shaftdiameter" class="form-control" />
+                    <span asp-validation-for="@component.Shaftdiameter" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.Voltagerating" class="control-label"></label>
+                    <input type="text" asp-for="@component.Voltagerating" class="form-control" />
+                    <span asp-validation-for="@component.Voltagerating" class="text-danger"></span>
+                </div>
+            }
+
+            @if (Model.ComponentType == ComponentType.Bolt)
+            {
+                var component = Model.Component as Bolt;
+
+                <div class="form-group">
+                    <label asp-for="@component.Size" class="control-label"></label>
+                    <input type="text" asp-for="@component.Size" class="form-control" />
+                    <span asp-validation-for="@component.Size" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.Length" class="control-label"></label>
+                    <input type="number" asp-for="@component.Length" class="form-control" />
+                    <span asp-validation-for="@component.Length" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.Head" class="control-label"></label>
+                    <input type="text" asp-for="@component.Head" class="form-control" />
+                    <span asp-validation-for="@component.Head" class="text-danger"></span>
+                </div>
+            }
+
+            @if (Model.ComponentType == ComponentType.Microcontroller)
+            {
+                var component = Model.Component as Microcontroller;
+
+                <div class="form-group">
+                    <label asp-for="@component.Processor" class="control-label"></label>
+                    <input type="text" asp-for="@component.Processor" class="form-control" />
+                    <span asp-validation-for="@component.Processor" class="text-danger"></span>
+                </div>
+            }
+
+            @if (Model.ComponentType == ComponentType.Propeller)
+            {
+                var component = Model.Component as Propeller;
+
+                <div class="form-group">
+                    <label asp-for="@component.NoBlades" class="control-label"></label>
+                    <input type="number" asp-for="@component.NoBlades" class="form-control" />
+                    <span asp-validation-for="@component.NoBlades" class="text-danger"></span>
+                </div>
+            }
+
+            @if (Model.ComponentType == ComponentType.StepperMotor)
+            {
+                var component = Model.Component as StepperMotor;
+
+                <div class="form-group">
+                    <label asp-for="@component.Size" class="control-label"></label>
+                    <input type="text" asp-for="@component.Size" class="form-control" />
+                    <span asp-validation-for="@component.Size" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.Currentrating" class="control-label"></label>
+                    <input type="number" asp-for="@component.Currentrating" class="form-control" />
+                    <span asp-validation-for="@component.Currentrating" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.Holdingtorque" class="control-label"></label>
+                    <input type="number" asp-for="@component.Holdingtorque" class="form-control" />
+                    <span asp-validation-for="@component.Holdingtorque" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.Shaftdiameter" class="control-label"></label>
+                    <input type="number" asp-for="@component.Shaftdiameter" class="form-control" />
+                    <span asp-validation-for="@component.Shaftdiameter" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.SPR" class="control-label"></label>
+                    <input type="number" asp-for="@component.SPR" class="form-control" />
+                    <span asp-validation-for="@component.SPR" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@component.Voltagerating" class="control-label"></label>
+                    <input type="number" asp-for="@component.Voltagerating" class="form-control" />
+                    <span asp-validation-for="@component.Voltagerating" class="text-danger"></span>
+                </div>
+            }
+
             <div class="form-group text-center">
                 <input type="submit" value="Save" class="btn btn-success mr-3" />
                 <a class="btn btn-primary" asp-page="./Index">Cancel</a>

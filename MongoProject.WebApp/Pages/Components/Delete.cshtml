@@ -12,36 +12,145 @@
 
 <h4 class="text-center">Component</h4>
 <hr />
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-center">
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Component.Id)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 text-center">
             @Html.DisplayFor(model => model.Component.Id)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Component.Name)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 text-center">
             @Html.DisplayFor(model => model.Component.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Component.Type)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 text-center">
             @Html.DisplayFor(model => model.Component.Type)
         </dd>
-        @*<dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Component.Size)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Component.Size)
-        </dd>*@
+
+        @if (Model.Component.Type == ComponentType.BLDCMotor)
+        {
+            var component = Model.Component as BLDCMotor;
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.RPMV)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.RPMV)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Shaftdiameter)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Shaftdiameter)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Voltagerating)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Voltagerating)
+            </dd>
+        }
+
+        @if (Model.Component.Type == ComponentType.Bolt)
+        {
+            var component = Model.Component as Bolt;
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Size)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Size)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Length)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Length)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Head)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Head)
+            </dd>
+        }
+
+        @if (Model.Component.Type == ComponentType.Microcontroller)
+        {
+            var component = Model.Component as Microcontroller;
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Processor)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Processor)
+            </dd>
+        }
+
+        @if (Model.Component.Type == ComponentType.Propeller)
+        {
+            var component = Model.Component as Propeller;
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.NoBlades)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.NoBlades)
+            </dd>
+        }
+
+        @if (Model.Component.Type == ComponentType.StepperMotor)
+        {
+            var component = Model.Component as StepperMotor;
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Size)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Size)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Currentrating)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Currentrating)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Holdingtorque)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Holdingtorque)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Shaftdiameter)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Shaftdiameter)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.SPR)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.SPR)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => component.Voltagerating)
+            </dt>
+            <dd class="col-sm-10 text-center">
+                @Html.DisplayFor(model => component.Voltagerating)
+            </dd>
+        }
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Component.Quantity)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 text-center">
             @Html.DisplayFor(model => model.Component.Quantity)
         </dd>
     </dl>
@@ -51,6 +160,6 @@
     <form method="post">
         <input type="hidden" asp-for="Component.Id" />
         <input type="submit" value="Delete" class="btn btn-danger mr-3" />
-        <a class="btn btn-primary" asp-page="./Details" asp-route-id="@Model.Component.Id">Cancel</a>
+        <a class="btn btn-primary" asp-page="./Details" asp-route-id="@Model.Component.Id" asp-route-type="@Model.Component.Type">Cancel</a>
     </form>
 </div>

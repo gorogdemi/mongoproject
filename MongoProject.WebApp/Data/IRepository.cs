@@ -7,7 +7,7 @@ namespace MongoProject.WebApp.Data
     public interface IRepository
     {
         Task UpdateComponentAsync(Component componentToUpdate);
-        Task<Component> FindComponentAsync(string id);
+        Task<Component> FindComponentAsync(string id, ComponentType type);
         Task<PaginatedList<Component>> GetAllComponentsPaginatedAsync(string searchString, string sortOrder, int pageIndex, int pageSize);
         Task AddComponentAsync(Component component);
         Task DeleteComponentAsync(Component component);

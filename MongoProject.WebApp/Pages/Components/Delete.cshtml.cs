@@ -19,14 +19,14 @@ namespace MongoProject.WebApp.Pages.Components
             _repository = repository;
         }
 
-        public async Task<IActionResult> OnGetAsync(string id, bool? saveChangesError = false)
+        public async Task<IActionResult> OnGetAsync(string id, ComponentType? type, bool? saveChangesError = false)
         {
-            if (id == null)
+            if (id == null || type == null)
             {
                 return NotFound();
             }
 
-            Component = await _repository.FindComponentAsync(id);
+            Component = await _repository.FindComponentAsync(id, type.Value);
 
             if (Component == null)
             {
@@ -41,14 +41,14 @@ namespace MongoProject.WebApp.Pages.Components
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(string id, ComponentType? type)
         {
-            if (id == null)
+            if (id == null || type == null)
             {
                 return NotFound();
             }
 
-            var component = await _repository.FindComponentAsync(id);
+            var component = await _repository.FindComponentAsync(id, type.Value);
 
             if (component == null)
             {
@@ -62,7 +62,7 @@ namespace MongoProject.WebApp.Pages.Components
             }
             catch
             {
-                return RedirectToAction("./Delete", new { id, saveChangesError = true });
+                return RedirectToAction("./Delete", new { id, type, saveChangesError = true });
             }
         }
     }

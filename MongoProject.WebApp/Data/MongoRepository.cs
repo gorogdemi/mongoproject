@@ -19,10 +19,18 @@ namespace MongoProject.WebApp.Data
         public async Task AddComponentAsync(Component component) => await _database.GetCollection<Component>("Components").InsertOneAsync(component);
         public async Task DeleteComponentAsync(Component component) => await _database.GetCollection<Component>("Components").FindOneAndDeleteAsync(x => x.Id == component.Id);
 
-        public async Task<Component> FindComponentAsync(string id)
+        public async Task<Component> FindComponentAsync(string id, ComponentType type)
         {
-            var component = await _database.GetCollection<Component>("Components").FindAsync(x => x.Id == id);
-            return await component.FirstOrDefaultAsync();
+            var component = type switch
+            {
+                ComponentType.BLDCMotor => await (await _database.GetCollection<BLDCMotor>("Components").FindAsync(x => x.Id == id)).FirstOrDefaultAsync(),
+                ComponentType.Bolt => await (await _database.GetCollection<Bolt>("Components").FindAsync(x => x.Id == id)).FirstOrDefaultAsync(),
+                ComponentType.Microcontroller => await (await _database.GetCollection<Microcontroller>("Components").FindAsync(x => x.Id == id)).FirstOrDefaultAsync(),
+                ComponentType.Propeller => await (await _database.GetCollection<Propeller>("Components").FindAsync(x => x.Id == id)).FirstOrDefaultAsync(),
+                ComponentType.StepperMotor => await (await _database.GetCollection<StepperMotor>("Components").FindAsync(x => x.Id == id)).FirstOrDefaultAsync(),
+                _ => await (await _database.GetCollection<Component>("Components").FindAsync(x => x.Id == id)).FirstOrDefaultAsync()
+            };
+            return component;
         }
 
         public async Task<PaginatedList<Component>> GetAllComponentsPaginatedAsync(string searchString, string sortOrder, int pageIndex, int pageSize)
