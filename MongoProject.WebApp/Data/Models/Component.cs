@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoProject.WebApp.Data.Models
@@ -12,7 +13,8 @@ namespace MongoProject.WebApp.Data.Models
 
         public string Name { get; set; }
 
-        public string Type { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public ComponentType Type { get; set; }
 
         public int Quantity { get; set; }
     }

@@ -10,26 +10,51 @@ namespace MongoProject.WebApp.Pages.Components
     {
         private readonly IRepository _repository;
 
+        [BindProperty]
         public Component Component { get; set; }
+
+        public ComponentType ComponentType { get; set; }
 
         public AddModel(IRepository repository)
         {
             _repository = repository;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(ComponentType? type)
         {
+            if (type == null)
+            {
+                NotFound();
+            }
+
+            ComponentType = type.Value;
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var emptyComponent = new Component();
+            var emptyComponent = Component.Type switch
+            {
+                ComponentType.BLDCMotor => new BLDCMotor(),
+                ComponentType.Bolt => new Bolt(),
+                ComponentType.Microcontroller => new Microcontroller(),
+                ComponentType.Propeller => new Propeller(),
+                ComponentType.StepperMotor => new StepperMotor(),
+                _ => new Component()
+            };
 
-            if (await TryUpdateModelAsync(
-                emptyComponent,
-                "component",
-                c => c.Id, c => c.Name, c => c.Type))
+            var result = Component.Type switch
+            {
+                ComponentType.BLDCMotor => await TryUpdateModelAsync(emptyComponent as BLDCMotor, "component", c => c.Id, c => c.Name, c => c.Type, c => c.RPMV, c => c.Shaftdiameter, c => c.Voltagerating),
+                ComponentType.Bolt => await TryUpdateModelAsync(emptyComponent as Bolt, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Head, c => c.Length, c => c.Size),
+                ComponentType.Microcontroller => await TryUpdateModelAsync(emptyComponent as Microcontroller, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Processor),
+                ComponentType.Propeller => await TryUpdateModelAsync(emptyComponent as Propeller, "component", c => c.Id, c => c.Name, c => c.Type, c => c.NoBlades),
+                ComponentType.StepperMotor => await TryUpdateModelAsync(emptyComponent as StepperMotor, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Currentrating, c => c.Holdingtorque, c => c.Shaftdiameter, c => c.Size, c => c.SPR, c => c.Voltagerating),
+                _ => false
+            };
+
+            if (result)
             {
                 await _repository.AddComponentAsync(emptyComponent);
                 return RedirectToPage("./Index");

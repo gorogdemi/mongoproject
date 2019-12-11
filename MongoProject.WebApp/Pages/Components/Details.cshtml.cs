@@ -17,14 +17,14 @@ namespace MongoProject.WebApp.Pages.Components
 
         public Component Component { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string id, ComponentType? type)
         {
-            if (id == null)
+            if (id == null || type == null)
             {
                 return NotFound();
             }
 
-            Component = await _repository.FindComponentAsync(id);
+            Component = await _repository.FindComponentAsync(id, type.Value);
 
             return Component == null ? NotFound() : (IActionResult)Page();
         }

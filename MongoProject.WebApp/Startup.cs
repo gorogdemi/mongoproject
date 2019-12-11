@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDbGenericRepository;
 using MongoProject.WebApp.Data;
 
@@ -14,8 +16,6 @@ namespace MongoProject.WebApp
     //TODO Components mennyiség megadása
     //TODO Kitek (like Components)
     //TODO Main oldal
-    //TODO DB feltöltése (mindenképp Gergõ)
-    //TODO Design
 
     public class Startup
     {

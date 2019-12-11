@@ -6,16 +6,21 @@
 
 <h1 class="text-center">Components</h1>
 
-<p class="mt-5 text-center">
-    <a class="btn btn-success" asp-page="Add">Add new component</a>
-</p>
+<form class="mt-5 text-center" asp-page="./Add" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <input type="submit" value="Add new component" class="btn btn-success mr-3" />
+            <select class="custom-select-sm" name="type" asp-items="Html.GetEnumSelectList<ComponentType>()"></select>
+        </p>
+    </div>
+</form>
 
 <form class="mt-5 text-center" asp-page="./Index" method="get">
     <div class="form-actions no-color">
         <p>
             Find by name:
             <input type="text" name="SearchString" value="@Model.CurrentFilter" />
-            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <input type="submit" value="Search" class="btn btn-primary mr-2" />
             <a class="btn btn-primary" asp-page="./Index">Back to full List</a>
         </p>
     </div>
@@ -46,7 +51,7 @@
         {
             <tr>
                 <td>
-                    <a asp-page="./Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                    <a asp-page="./Details" asp-route-id="@item.Id" asp-route-type="@item.Type">@Html.DisplayFor(modelItem => item.Name)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Type)
