@@ -11,12 +11,17 @@ namespace MongoProject.WebApp.Data
         Task<PaginatedList<Component>> GetAllComponentsPaginatedAsync(string searchString, string sortOrder, int pageIndex, int pageSize);
         Task AddComponentAsync(Component component);
         Task DeleteComponentAsync(Component component);
-        Task<int> GetComponentCount();
+        Task<int> GetComponentCountAsync();
         Task AddKitAsync(Kit kit);
         Task<Kit> FindKitAsync(string id);
         Task UpdateKitAsync(Kit kitToUpdate);
         Task DeleteKitAsync(Kit kit);
         Task<PaginatedList<Kit>> GetAllKitsPaginatedAsync(string currentFilter, string currentSort, int v, int pageSize);
-        Task<int> GetKitCount();
+        Task<int> GetKitCountAsync();
+        Task<int> GetComponentPieceCountAsync();
+        Task<int> GetNotEnoughForKitCountAsync();
+        Task CheckOutAsync(Kit kit);
+        Task<int> GetLowQuantityComponentCountAsync();
+        Task<Component> FindComponentAsync(string id);
     }
 }

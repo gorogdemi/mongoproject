@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MongoProject.WebApp.Data;
 using MongoProject.WebApp.Data.Models;
@@ -6,6 +7,7 @@ using MongoProject.WebApp.Utilities;
 
 namespace MongoProject.WebApp.Pages.Components
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly IRepository _repository;

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MongoProject.WebApp.Data;
@@ -6,6 +7,7 @@ using MongoProject.WebApp.Data.Models;
 
 namespace MongoProject.WebApp.Pages.Kits
 {
+    [Authorize]
     public class AddModel : PageModel
     {
         private readonly IRepository _repository;

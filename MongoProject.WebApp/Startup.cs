@@ -12,9 +12,6 @@ using MongoProject.WebApp.Data.Models;
 
 namespace MongoProject.WebApp
 {
-    //TODO Login
-    //TODO Main oldal
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -54,6 +51,12 @@ namespace MongoProject.WebApp
 
                 //SignIn settings
                 options.SignIn.RequireConfirmedEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Login";
+                options.LogoutPath = $"/Logout";
             });
 
             BsonClassMap.RegisterClassMap<Component>();

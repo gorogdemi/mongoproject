@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MongoProject.WebApp.Data;
@@ -6,6 +7,7 @@ using MongoProject.WebApp.Data.Models;
 
 namespace MongoProject.WebApp.Pages.Kits
 {
+    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly IRepository _repository;
@@ -15,6 +17,7 @@ namespace MongoProject.WebApp.Pages.Kits
             _repository = repository;
         }
 
+        [BindProperty]
         public Kit Kit { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
@@ -27,6 +30,13 @@ namespace MongoProject.WebApp.Pages.Kits
             Kit = await _repository.FindKitAsync(id);
 
             return Kit == null ? NotFound() : (IActionResult)Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            await _repository.CheckOutAsync(Kit);
+
+            return RedirectToPage("./Index");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -34,6 +33,9 @@ namespace MongoProject.WebApp.Data
             return component;
         }
 
+        public async Task<Component> FindComponentAsync(string id)
+            => await (await _database.GetCollection<Component>("Components").FindAsync(x => x.Id == id)).FirstOrDefaultAsync();
+
         public async Task<PaginatedList<Component>> GetAllComponentsPaginatedAsync(string searchString, string sortOrder, int pageIndex, int pageSize)
         {
             searchString ??= string.Empty;
@@ -52,13 +54,13 @@ namespace MongoProject.WebApp.Data
 
             components = components.Skip((pageIndex - 1) * pageSize).Take(pageSize);
             var componentList = await components.ToListAsync();
-            return new PaginatedList<Component>(componentList, await GetComponentCount(), pageIndex, pageSize);
+            return new PaginatedList<Component>(componentList, await GetComponentCountAsync(), pageIndex, pageSize);
         }
 
         public async Task UpdateComponentAsync(Component componentToUpdate)
             => await _database.GetCollection<Component>("Components").FindOneAndReplaceAsync(x => x.Id == componentToUpdate.Id, componentToUpdate);
 
-        public async Task<int> GetComponentCount() => (int)await _database.GetCollection<Component>("Components").CountDocumentsAsync(x => true);
+        public async Task<int> GetComponentCountAsync() => (int)await _database.GetCollection<Component>("Components").CountDocumentsAsync(x => true);
         
         public async Task AddKitAsync(Kit kit) => await _database.GetCollection<Kit>("Kits").InsertOneAsync(kit);
         
@@ -86,9 +88,27 @@ namespace MongoProject.WebApp.Data
 
             kits = kits.Skip((pageIndex - 1) * pageSize).Take(pageSize);
             var kitList = await kits.ToListAsync();
-            return new PaginatedList<Kit>(kitList, await GetKitCount(), pageIndex, pageSize);
+            return new PaginatedList<Kit>(kitList, await GetKitCountAsync(), pageIndex, pageSize);
         }
 
-        public async Task<int> GetKitCount() => (int)await _database.GetCollection<Kit>("Kits").CountDocumentsAsync(x => true);
+        public async Task<int> GetKitCountAsync() => (int)await _database.GetCollection<Kit>("Kits").CountDocumentsAsync(x => true);
+
+        public async Task<int> GetComponentPieceCountAsync() => await _database.GetCollection<Component>("Components").AsQueryable().SumAsync(x => x.Quantity);
+
+        public async Task<int> GetNotEnoughForKitCountAsync() => await _database.GetCollection<Kit>("Kits").AsQueryable().CountAsync(x => x.Quantity == 0);
+
+        public async Task<int> GetLowQuantityComponentCountAsync() => (await _database.GetCollection<Component>("Components").FindAsync(x => x.Quantity <= 10)).ToList().Count;
+        
+        public async Task CheckOutAsync(Kit kit)
+        {
+            kit.Quantity--;
+            await UpdateKitAsync(kit);
+            foreach (var component in kit.Components)
+            {
+                var componentFromDb = await FindComponentAsync(component.Id);
+                componentFromDb.Quantity -= component.Quantity;
+                await UpdateComponentAsync(componentFromDb);
+            }
+        }
     }
 }
