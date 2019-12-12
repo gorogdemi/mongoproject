@@ -46,11 +46,11 @@ namespace MongoProject.WebApp.Pages.Components
 
             var result = Component.Type switch
             {
-                ComponentType.BLDCMotor => await TryUpdateModelAsync(emptyComponent as BLDCMotor, "component", c => c.Id, c => c.Name, c => c.Type, c => c.RPMV, c => c.Shaftdiameter, c => c.Voltagerating),
-                ComponentType.Bolt => await TryUpdateModelAsync(emptyComponent as Bolt, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Head, c => c.Length, c => c.Size),
-                ComponentType.Microcontroller => await TryUpdateModelAsync(emptyComponent as Microcontroller, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Processor),
-                ComponentType.Propeller => await TryUpdateModelAsync(emptyComponent as Propeller, "component", c => c.Id, c => c.Name, c => c.Type, c => c.NoBlades),
-                ComponentType.StepperMotor => await TryUpdateModelAsync(emptyComponent as StepperMotor, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Currentrating, c => c.Holdingtorque, c => c.Shaftdiameter, c => c.Size, c => c.SPR, c => c.Voltagerating),
+                ComponentType.BLDCMotor => await TryUpdateModelAsync(emptyComponent as BLDCMotor, "component", c => c.Id, c => c.Name, c => c.Type, c => c.RPMV, c => c.Shaftdiameter, c => c.Voltagerating, c => c.Quantity),
+                ComponentType.Bolt => await TryUpdateModelAsync(emptyComponent as Bolt, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Head, c => c.Length, c => c.Size, c => c.Quantity),
+                ComponentType.Microcontroller => await TryUpdateModelAsync(emptyComponent as Microcontroller, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Processor, c => c.Quantity),
+                ComponentType.Propeller => await TryUpdateModelAsync(emptyComponent as Propeller, "component", c => c.Id, c => c.Name, c => c.Type, c => c.NoBlades, c => c.Quantity),
+                ComponentType.StepperMotor => await TryUpdateModelAsync(emptyComponent as StepperMotor, "component", c => c.Id, c => c.Name, c => c.Type, c => c.Currentrating, c => c.Holdingtorque, c => c.Shaftdiameter, c => c.Size, c => c.SPR, c => c.Voltagerating, c => c.Quantity),
                 _ => false
             };
 

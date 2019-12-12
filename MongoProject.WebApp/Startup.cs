@@ -5,16 +5,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Bson.Serialization;
 using MongoDbGenericRepository;
 using MongoProject.WebApp.Data;
+using MongoProject.WebApp.Data.Models;
 
 namespace MongoProject.WebApp
 {
     //TODO Login
-    //TODO Components mennyiség megadása
-    //TODO Kitek (like Components)
     //TODO Main oldal
 
     public class Startup
@@ -57,6 +55,14 @@ namespace MongoProject.WebApp
                 //SignIn settings
                 options.SignIn.RequireConfirmedEmail = true;
             });
+
+            BsonClassMap.RegisterClassMap<Component>();
+            BsonClassMap.RegisterClassMap<BLDCMotor>();
+            BsonClassMap.RegisterClassMap<Bolt>();
+            BsonClassMap.RegisterClassMap<Microcontroller>();
+            BsonClassMap.RegisterClassMap<Propeller>();
+            BsonClassMap.RegisterClassMap<StepperMotor>();
+            BsonClassMap.RegisterClassMap<Kit>();
 
             services.AddScoped(x => mongoDbContext.Database);
 
