@@ -4,5 +4,87 @@
     ViewData["Title"] = "Kits";
 }
 
-<h1>Kits</h1>
+<h1 class="text-center">Kits</h1>
 
+<form class="mt-5 text-center" asp-page="./Add" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <input type="submit" value="Add new kit" class="btn btn-success mr-3" />
+        </p>
+    </div>
+</form>
+
+<form class="mt-5 text-center" asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary mr-2" />
+            <a class="btn btn-primary" asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Kits[0].Name)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.PriceSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Kits[0].Price)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.QuantitySort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Kits[0].Quantity)
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Kits)
+        {
+            <tr>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+@{
+    var prevDisabled = !Model.Kits.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Kits.HasNextPage ? "disabled" : "";
+}
+
+<div class="container text-center mt-5">
+    <span class="mr-4"><b>Page: @Model.Kits.PageIndex</b></span>
+
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Kits.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary mr-4 @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Kits.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @nextDisabled">
+        Next
+    </a>
+</div>

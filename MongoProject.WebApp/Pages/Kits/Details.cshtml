@@ -1,8 +1,77 @@
 ﻿@page
 @model DetailsModel
 @{
-    ViewData["Title"] = "Component Details";
+    ViewData["Title"] = "Kit Details";
 }
 
-<h1>Details</h1>
+<h1 class="text-center">Details</h1>
+
+<h4 class="text-center">Kit</h4>
+<div class="text-center">
+    <a class="btn btn-success" asp-page="./CheckOut" asp-route-id="@Model.Kit.Id">Check out</a> @*inputtal*@
+</div>
+<hr />
+<div class="d-flex justify-content-center">
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kit.Id)
+        </dt>
+        <dd class="col-sm-10 text-center">
+            @Html.DisplayFor(model => model.Kit.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kit.Name)
+        </dt>
+        <dd class="col-sm-10 text-center">
+            @Html.DisplayFor(model => model.Kit.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kit.Price)
+        </dt>
+        <dd class="col-sm-10 text-center">
+            @Html.DisplayFor(model => model.Kit.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kit.Quantity)
+        </dt>
+        <dd class="col-sm-10 text-center">
+            @Html.DisplayFor(model => model.Kit.Quantity)
+        </dd>
+    </dl>
+</div>
+
+<h5 class="text-center m-3">Components</h5>
+
+<div class="row">
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Kit.Components[0].Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Kit.Components[0].Quantity)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Kit.Components)
+            {
+                <tr>
+                    <td>
+                        <b>@Html.DisplayFor(modelItem => item.Id)</b>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    <a class="btn btn-success mr-3" asp-page="./Edit" asp-route-id="@Model.Kit.Id">Edit</a>
+    <a class="btn btn-danger mr-3" asp-page="./Delete" asp-route-id="@Model.Kit.Id">Delete</a>
+    <a class="btn btn-primary mr-3" asp-page="./Index">Back to List</a>
+</div>
 

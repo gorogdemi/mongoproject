@@ -1,8 +1,40 @@
 ﻿@page
 @model AddModel
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Add Kit";
 }
 
-<h1>Add</h1>
+<h1 class="text-center">Add</h1>
 
+<h4 class="text-center">Kit</h4>
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Kit.Id" class="control-label"></label>
+                <input type="text" asp-for="Kit.Id" class="form-control" />
+                <span asp-validation-for="Kit.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kit.Name" class="control-label"></label>
+                <input type="text" asp-for="Kit.Name" class="form-control" />
+                <span asp-validation-for="Kit.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kit.Price" class="control-label"></label>
+                <input type="number" asp-for="Kit.Price" class="form-control" />
+                <span asp-validation-for="Kit.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" value="Save" class="btn btn-success mr-3" />
+                <a class="btn btn-primary" asp-page="./Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

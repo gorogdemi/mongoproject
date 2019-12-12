@@ -120,6 +120,11 @@
                 </div>
             }
 
+            <div class="form-group">
+                <label asp-for="Component.Quantity" class="control-label"></label>
+                <input type="number" asp-for="Component.Quantity" class="form-control" />
+                <span asp-validation-for="Component.Quantity" class="text-danger"></span>
+            </div>
             <div class="form-group text-center">
                 <input type="submit" value="Save" class="btn btn-success mr-3" />
                 <a class="btn btn-primary" asp-page="./Details" asp-route-id="@Model.Component.Id" asp-route-type="@Model.Component.Type">Cancel</a>

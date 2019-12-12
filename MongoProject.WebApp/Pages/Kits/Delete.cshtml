@@ -1,8 +1,45 @@
 ﻿@page
 @model DeleteModel
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Kit";
 }
 
-<h1>Delete</h1>
+<h1 class="text-center">Delete</h1>
+
+<p class="text-danger text-center">@Model.ErrorMessage</p>
+
+<h3 class="text-center">Are you sure you want to delete this?</h3>
+
+<h4 class="text-center">Component</h4>
+<hr />
+<div class="d-flex justify-content-center">
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kit.Id)
+        </dt>
+        <dd class="col-sm-10 text-center">
+            @Html.DisplayFor(model => model.Kit.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kit.Name)
+        </dt>
+        <dd class="col-sm-10 text-center">
+            @Html.DisplayFor(model => model.Kit.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kit.Price)
+        </dt>
+        <dd class="col-sm-10 text-center">
+            @Html.DisplayFor(model => model.Kit.Price)
+        </dd>
+    </dl>
+</div>
+
+<div class="text-center">
+    <form method="post">
+        <input type="hidden" asp-for="Kit.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger mr-3" />
+        <a class="btn btn-primary" asp-page="./Details" asp-route-id="@Model.Kit.Id">Cancel</a>
+    </form>
+</div>
 
