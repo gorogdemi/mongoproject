@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -100,14 +101,35 @@ namespace MongoProject.WebApp.Data
         public async Task<int> GetLowQuantityComponentCountAsync() => (await _database.GetCollection<Component>("Components").FindAsync(x => x.Quantity <= 10)).ToList().Count;
         
         public async Task CheckOutAsync(Kit kit)
-        {
-            kit.Quantity--;
-            await UpdateKitAsync(kit);
+        { 
             foreach (var component in kit.Components)
             {
                 var componentFromDb = await FindComponentAsync(component.Id);
                 componentFromDb.Quantity -= component.Quantity;
                 await UpdateComponentAsync(componentFromDb);
+            }
+
+            await UpdateAllKitQuantity();
+        }
+
+        private async Task UpdateAllKitQuantity()
+        {
+            var kits = await (await _database.GetCollection<Kit>("Kits").FindAsync(x => true)).ToListAsync();
+            foreach (var kit in kits)
+            {
+                var min = int.MaxValue;
+                foreach (var component in kit.Components)
+                {
+                    var componentFromDb = await FindComponentAsync(component.Id);
+                    var div = componentFromDb.Quantity / component.Quantity;
+                    if (div < min)
+                    {
+                        min = div;
+                    }
+                }
+
+                kit.Quantity = min;
+                await UpdateKitAsync(kit);
             }
         }
     }

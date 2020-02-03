@@ -7,9 +7,14 @@
 <h1 class="text-center">Details</h1>
 
 <h4 class="text-center">Kit</h4>
-<div class="text-center">
-    <a class="btn btn-success" asp-page="./CheckOut" asp-route-id="@Model.Kit.Id">Check out</a> @*inputtal*@
-</div>
+<form class="mt-2 text-center" method="post">
+    <div class="form-actions no-color">
+        <p>
+            <input type="hidden" asp-for="Kit.Id"/>
+            <input type="submit" value="Check out" class="btn btn-success" />
+        </p>
+    </div>
+</form>
 <hr />
 <div class="d-flex justify-content-center">
     <dl class="row">

@@ -17,7 +17,6 @@ namespace MongoProject.WebApp.Pages.Kits
             _repository = repository;
         }
 
-        [BindProperty]
         public Kit Kit { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
@@ -32,9 +31,21 @@ namespace MongoProject.WebApp.Pages.Kits
             return Kit == null ? NotFound() : (IActionResult)Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string id)
         {
-            await _repository.CheckOutAsync(Kit);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var kit = await _repository.FindKitAsync(id);
+
+            if (kit == null)
+            {
+                return NotFound();
+            }
+
+            await _repository.CheckOutAsync(kit);
 
             return RedirectToPage("./Index");
         }
